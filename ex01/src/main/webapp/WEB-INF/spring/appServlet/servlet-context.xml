@@ -17,19 +17,24 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="prefix" value="/WEB-INF/views/" /> <!-- view경로, 변경할 때 완전 조심 -->
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="defaultEncoding" value="utf-8"></beans:property>
+		<!-- 1024 * 1024 * 10bytes 10MB 한번에 업로드할 수 있는 크기 -->
 		<beans:property name="maxUploadSize" value="104857560"></beans:property>
+		<!-- 1024 * 1024 * 2bytes 2MB 파일 하나당 최대 크기 -->
 		<beans:property name="maxUploadSizePerFile" value="2097152"></beans:property>
-		<beans:property name="uploadTempDir" value="file:/C:/upload/tmp"></beans:property>
+		<beans:property name="uploadTempDir" value="file:/C:/upload2/tmp"></beans:property>
+		<!-- 메모리상에서 유지 가능한 크기 -->
 		<beans:property name="maxInMemorySize" value="10485756"></beans:property>
 	</beans:bean>
+		
+	<context:component-scan base-package="com.codehows.controller" />
 	
-	<context:component-scan base-package="org.codehows.controller" />
-	<context:component-scan base-package="org.codehows.exception" />
+	<context:component-scan base-package="com.codehows.exception" />
+	
 	
 </beans:beans>
