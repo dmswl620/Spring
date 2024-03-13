@@ -5,7 +5,9 @@
 <mapper namespace="com.codehows.mapper.BoardMapper">
 
 <select id="getList" resultType="com.codehows.domain.BoardVO">
-<![CDATA[ select * from tbl_board where bno > 0 ]]>
+<![CDATA[ 
+	select * from tbl_board where bno > 0 
+]]>
 </select>
 
 <insert id="insert">
@@ -15,13 +17,29 @@
 
 <insert id="insertSelectKey">
 	
-	<selectKey keyProperty="bno" order="BEFORE"
-	resultType="long"> 
-	seq_board.nextval from dual
+	<selectKey keyProperty="bno" order="BEFORE" resultType="long"> 
+	select seq_board.nextval from dual
 	</selectKey>
 	
 	insert into tbl_board (bno,title,content, writer)
 	values (#{bno}, #{title}, #{content}, #{writer})
 </insert>
+
+<select id="read" resultType="com.codehows.domain.BoardVO">
+	select * from tbl_board where bno = ${bno}
+</select>
+
+<delete id="delete">
+	delete from tbl_board where bno = #{bno}  <!-- 사용자가 입력한 bno 번호가 맞는 게시물 삭제 -->
+</delete>
+
+<update id="update">
+	update tbl_board
+	set title= #{title},
+	content=#{content},
+	writer = #{writer},
+	updateDate = sysdate
+	where bno = #{bno}
+</update>
 
 </mapper>
