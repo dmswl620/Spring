@@ -7,37 +7,55 @@ import com.codehows.domain.BoardVO;
 import com.codehows.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
 @AllArgsConstructor
-public class BoardServiceImpl implements BoardService{
-	
-	//@Setter(onMethod_ = @Autowired)
-	//spring 4.3 이상에서 자동 처리
-	private BoardMapper mapper;
+public class BoardServiceImpl implements BoardService {
 
-	public void register(BoardVO board) {
-		
-	}
+   private BoardMapper mapper;
 
-	public BoardVO get(Long bno) {
-		return null;
-	}
+   @Override
+   public void register(BoardVO board) {
 
-	public boolean modify(BoardVO board) {
-		return false;
-	}
+      log.info("register......" + board);
 
-	public boolean remove(Long bno) {
-		return false;
-	}
+      mapper.insertSelectKey(board);
+   }
 
-	public List<BoardVO> getList() {
-		return null;
-	}
-	
-		
-	
+   @Override
+   public BoardVO get(Long bno) {
+
+      log.info("get......" + bno);
+
+      return mapper.read(bno);
+
+   }
+
+   @Override
+   public boolean modify(BoardVO board) {
+
+      log.info("modify......" + board);
+
+      return mapper.update(board) == 1;
+   }
+
+   @Override
+   public boolean remove(Long bno) {
+
+      log.info("remove...." + bno);
+
+      return mapper.delete(bno) == 1;
+   }
+
+   @Override
+   public List<BoardVO> getList() {
+
+      log.info("getList..........");
+
+      return mapper.getList();
+   }
+
 }
