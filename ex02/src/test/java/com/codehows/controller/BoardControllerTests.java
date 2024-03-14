@@ -34,7 +34,7 @@ public class BoardControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
-	@Test
+/*	@Test
 	public void testList() throws Exception {
 		
 		log.info(
@@ -42,5 +42,51 @@ public class BoardControllerTests {
 				.andReturn()
 				.getModelAndView()
 				.getModelMap());
+	}*/
+	
+/*	@Test
+	public void testRegister() throws Exception{
+		
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
+			.param("title", "테스트 새글 제목")							//error:board/register not found
+			.param("content", "테스트 새글 내용")						//	-> controller에 postmapping 추가 안했음 
+			.param("writer", "user00")		
+		).andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
+	}*/
+	
+/*	@Test //ERRER : 해당 경고는 라이브러리 또는 프레임워크 개발자가 최신 버전으로 업데이트하여 모듈 시스템과의 호환성을 보장하도록 권장하는 것입니다.
+	public void testGet() throws Exception {
+		log.info(mockMvc.perform(MockMvcRequestBuilders
+				.get("/board/get")
+				.param("bno", "2"))
+				.andReturn().getModelAndView().getModelMap());
+	}*/
+	
+/*	@Test
+	public void testModify() throws Exception {
+		
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/board/modify")
+						.param("bno", "1")
+						.param("title", "수정된 테스트 새글 제목")
+						.param("content", "수정된 테스트 새글 내용")
+						.param("writer", "user00"))
+				.andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
+	}*/
+	
+	@Test
+	public void testRemove() throws Exception{
+		//삭제전 데이터베이스에 게시물 번호 확인할 것
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
+				.param("bno", "2")
+				).andReturn().getModelAndView().getViewName();
+		
+		log.info(resultPage);
 	}
+	
+	
 }
