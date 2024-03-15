@@ -54,6 +54,15 @@ $(document).ready(function(){
 		actionForm.submit();
 	});
 	
+	$(".move").on("click", function(e){
+		
+		e.preventDefault();
+		actionForm.append("<input type='hidden' name='bno' value='"+
+	$(this).attr("href")+"'>");
+		actionForm.attr("action","/board/get");
+		actionForm.submit();
+	});
+	
 	});
 </script>
 
@@ -88,8 +97,10 @@ $(document).ready(function(){
                             	<c:forEach items="${list}" var="board">
                             		<tr>
                             			<td><c:out value="${board.bno}" /></td>
-                            			<td><a href='/board/get?bno=<c:out value="${board.bno}"/>'>
-                            			<c:out value="${board.title}" /></a></td>
+                            			<td>
+                            				<a class='move' href='<c:out value="${board.bno}"/>'>
+                            				<c:out value="${board.title}" /></a>
+                            			</td>
                             			<td><c:out value="${board.writer}" /></td>
                             			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/></td>
                             			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}"/></td>
@@ -103,7 +114,8 @@ $(document).ready(function(){
                             	<ul class="pagination">
                             	
                             		<c:if test="${pageMaker.prev}">
-                            			<li class="${pageMaker.startPage - 1}"><a href="#">Previous</a>
+                            			<li class="paginate_button previous">
+                            				<a href="${pageMaker.startPage -1}">Previous</a>
                             			</li>
                             		</c:if>
                             		
