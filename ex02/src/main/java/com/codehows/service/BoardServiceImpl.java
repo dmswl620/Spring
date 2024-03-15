@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.codehows.domain.BoardVO;
+import com.codehows.domain.Criteria;
 import com.codehows.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
+//import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -50,12 +51,20 @@ public class BoardServiceImpl implements BoardService {
       return mapper.delete(bno) == 1;
    }
 
-   @Override
+ /*  @Override
    public List<BoardVO> getList() {
 
       log.info("getList..........");
 
       return mapper.getList();
+   }*/
+   
+   @Override
+   public List<BoardVO> getList(Criteria cri) {
+	   
+	   log.info("get List with croteria: " + cri);
+	   
+	   return mapper.getListWithPaging(cri);
    }
 
 }

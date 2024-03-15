@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.codehows.domain.BoardVO;
+import com.codehows.domain.Criteria;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -63,7 +64,7 @@ public class BoardServiceTests {
 		//게시물 번호의 존재 여부를 확인하고 테스트할 것
 		log.info("REMOVE RESULT: " + service.remove(9L));
 	}
-	*/
+	
 	
 	//특정 게시물 수정           ----------------ERROR
 	@Test
@@ -77,5 +78,14 @@ public class BoardServiceTests {
 		
 		board.setTitle("제목을 수정합니다.");
 		log.info("MODIFY RESULT: " + service.modify(board));
+	}
+	*/
+	
+	
+	@Test
+	public void testGetList() {
+		
+		
+		service.getList(new Criteria(2, 3)).forEach(board -> log.info(board));
 	}
 }

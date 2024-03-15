@@ -1,5 +1,7 @@
 package com.codehows.mapper;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.codehows.domain.BoardVO;
+import com.codehows.domain.Criteria;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -61,7 +64,7 @@ public class BoardMapperTest {
 	 * mapper.delete(17L)); }
 	 */
 	
-	@Test
+/*	@Test
 	public void testUpdate() {
 		BoardVO board = new BoardVO();
 		//실행전 존재하는 번호인지 확인할 것
@@ -72,6 +75,21 @@ public class BoardMapperTest {
 		
 		int count = mapper.update(board);
 		log.info("UPDATE COUNT: " + count);
+	}*/
+	
+	@Test
+	public void testPaging() {
+		
+		Criteria cri = new Criteria();
+		//2개씩 3페이지
+		cri.setPageNum(3);
+		cri.setAmount(3);
+		
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		
+		list.forEach(board -> log.info(board));
 	}
+	
+	
 
 }
