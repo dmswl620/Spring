@@ -81,12 +81,20 @@ public class ReplyMapperTests {
 */
 	//특정 게시물의 댓글 가져옴
 	//현재 데이터베이스에 추가되어 있는 댓글들의 게시물 번호로 확인함
-	@Test
+/*	@Test
 	public void testList() {
 		Criteria cri = new Criteria();
 		//114703L
 		List<ReplyVO> replies = mapper.getListWithPaging(cri, bnoArr[0]);
 		replies.forEach(reply -> log.info(reply));
 	}
+*/
 	
+	@Test
+	public void testList2() {
+		Criteria cri = new Criteria(2, 10);
+		
+		List<ReplyVO> replies = mapper.getListWithPaging(cri, 114703L);
+		replies.forEach(reply -> log.info(reply));
+	}
 }
