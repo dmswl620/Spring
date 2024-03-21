@@ -1,4 +1,4 @@
-package com.codehows.Service;
+package com.codehows.service;
 
 import org.springframework.stereotype.Service;
 

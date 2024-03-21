@@ -1,4 +1,4 @@
-package com.codehows.Service;
+package com.codehows.service;
 
 public interface SampleService {
 	
