@@ -6,6 +6,31 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+
+<style>
+
+.uploadResult{
+	width:100%;
+	background-color: gray;
+}
+
+.uploadResult ul{
+	display:flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+}
+
+.uploadResult ul li img {
+	width: 20px;
+}
+</style>
+
 <body>
 
 <h1>Upload with Ajax</h1>
@@ -15,6 +40,12 @@
 </div>
 
 <button id='uploadBtn'>Upload</button>
+
+<div class='uploadResult'>
+	<ul>
+	
+	</ul>
+</div>
 
 <script
 	src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -42,6 +73,8 @@
 			return true;
 		}
 		
+		var cloneObj = $(".uploadDiv").clone();
+		
 		$("#uploadBtn").on("click", function(e){
 			
 			var formData = new FormData();
@@ -62,14 +95,44 @@
 				formData.append("uploadFile", files[i]);
 			}
 			
+			var uploadResult = $(".uploadResult ul");
+			
+			function showUploadedFile(uploadResultArr) {
+				
+				var str = "";
+				
+				$(uploadResultArr).each(function(i, obj){
+					
+					if (!obj.image) {
+						
+						var fileCallPath = encodeURIComponent( obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
+						
+						str += "<li><a href='/download?fileName="+fileCallPath+"'>" 
+							+ "<img src='/resources/img/attach.png'>"+ obj.fileName + "</li>";
+				} else {
+				//	str += "<li>" + obj.fileName + "</li>";
+					var fileCallPath = encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid+"_"+obj.fileName);
+					
+					str+= "<li><img src='/display?fileName="+fileCallPath+"'></li>";
+				}
+				});
+				uploadResult.append(str);
+			}
+			
 			$.ajax({
 				url: '/uploadAjaxAction',
 					processData: false,
 					contentType: false,
 					data: formData,
 					type: 'POST',
-					success: function(rusult){
-						alert("Uploaded");
+					dataType:'json',
+					success: function(result) {
+						console.log(result);
+						//파일이름 보여짐
+						showUploadedFile(result);
+						
+						// 파일을 전송한 뒤 초기화된 부분을 덮어쓰기 -> 초기 상태로 변경
+						$(".uploadDiv").html(cloneObj.html());
 					}
 			}); //$.ajax
 		});
